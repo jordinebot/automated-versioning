@@ -34,11 +34,9 @@ jobs:
       - name: Test
         run: npm run test --silent
 
-      - name: Retrieve barnch name
-      - uses: nelonoel/branch-name@v1.0.1
-
       - name: Bump up
-        run: |
+      - uses: nelonoel/branch-name@v1.0.1
+      - run: |
             npm run version:bump
             echo "Commit to bump up made in branch ${BRANCH_NAME}"
             git push origin ${BRANCH_NAME}
