@@ -34,12 +34,19 @@ jobs:
       - name: Test
         run: npm run test --silent
 
+      - name: Dump GitHub context
+        env:
+            GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: |
+            echo "$GITHUB_CONTEXT"
+            echo ${{ github.event.pull_request.title }}
+
       - name: Bump up
         run: |
             npm run version:bump
-            echo "Commit to bump up made in branch ${HEAD_BRANCH}"
-            git push origin ${HEAD_BRANCH}
+            echo "Commit to bump up made in branch ${HEAD_REF}"
+            git push
         env:
-            BASE_BRANCH: ${{ github.base_ref }}
-            HEAD_BRANCH: ${{ github.head_ref }}
+            BASE_REF: ${{ github.base_ref }}
+            HEAD_REF: ${{ github.head_ref }}
 
