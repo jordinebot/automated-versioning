@@ -34,11 +34,12 @@ jobs:
       - name: Test
         run: npm run test --silent
 
-      - name: Step that prints name of pull request's base branch
+      - name: Bump up
         run: |
-            echo "Pull request's base branch is: ${BASE_BRANCH}"
-            echo "Pull request's head branch is: ${HEAD_BRANCH}"
+            npm run version:bump
+            echo "Commit to bump up made in branch ${HEAD_BRANCH}"
+            git push origin ${HEAD_BRANCH}
         env:
             BASE_BRANCH: ${{ github.base_ref }}
-            HEAD_BRANCH: $${{ github.head_ref }}
+            HEAD_BRANCH: ${{ github.head_ref }}
 
