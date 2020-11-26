@@ -36,9 +36,11 @@ jobs:
 
       - name: Bump up
         run: |
-            git pull origin ${HEAD_REF} --allow-unrelated-histories --ff-only
+            git pull origin ${HEAD_REF} --allow-unrelated-histories
             npm run version:bump
+            echo "Commit to bump up made in branch ${HEAD_REF}"
             git push origin HEAD:${HEAD_REF}
         env:
+            BASE_REF: ${{ github.base_ref }}
             HEAD_REF: ${{ github.head_ref }}
 
