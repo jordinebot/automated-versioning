@@ -34,16 +34,9 @@ jobs:
       - name: Test
         run: npm run test --silent
 
-      - name: Dump GitHub context
-        env:
-            GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: |
-            echo "$GITHUB_CONTEXT"
-            echo ${{ github.event.pull_request.title }}
-
       - name: Bump up
         run: |
-            git pull origin ${HEAD_REF} --ff-only
+            git pull origin ${HEAD_REF} --allow-unrelated-histories
             npm run version:bump
             echo "Commit to bump up made in branch ${HEAD_REF}"
             git push origin HEAD:${HEAD_REF}
