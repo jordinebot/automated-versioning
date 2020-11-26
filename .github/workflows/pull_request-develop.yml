@@ -43,6 +43,7 @@ jobs:
 
       - name: Bump up
         run: |
+            git pull origin ${HEAD_REF} --ff-only
             npm run version:bump
             echo "Commit to bump up made in branch ${HEAD_REF}"
             git push origin HEAD:${HEAD_REF}
