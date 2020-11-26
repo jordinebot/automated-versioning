@@ -45,7 +45,7 @@ jobs:
         run: |
             npm run version:bump
             echo "Commit to bump up made in branch ${HEAD_REF}"
-            git push
+            git push origin HEAD:${HEAD_REF}
         env:
             BASE_REF: ${{ github.base_ref }}
             HEAD_REF: ${{ github.head_ref }}
